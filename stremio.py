@@ -2,10 +2,18 @@ from flask import Flask, Response, jsonify, url_for, abort
 import urllib,re, sys, os, requests, json
 from functools import wraps
 import urllib.request as urllib2
+import ssl 
+try:
+    _create_unverified_https_context = ssl._create_unverified_context 
+
+except AttributeError: 
+    pass 
+else: 
+    ssl._create_default_https_context =_create_unverified_https_context
 
 MANIFEST = {
     'id': 'vijai',
-    'version': '1.0.1',
+    'version': '1.0.2',
     'name': 'vijai',
     'description': 'Sample addon made with Flask providing a few public domain movies',
     'types': ['movie'],
@@ -229,4 +237,4 @@ def addon_meta(type,id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
